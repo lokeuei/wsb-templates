@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[stage-name]]</title>
+    <style>
+        @page { size: letter; margin: 0; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background-color: #e0e0e0; 
+            margin: 0; 
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            background-color: white;
+            padding: 20px; 
+            margin-bottom: 20px; 
+            width: 210mm; 
+            min-height: 297mm;
+            max-height: 297mm;
+            position: relative;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .image-box {
+            flex: 1;
+            height: 230px;
+            border: 0px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            background: #fff;
+        }
+
+
+        .main-content-box {
+            border: 2px solid #000; 
+            flex-grow: 1;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 5px;
+            padding-bottom: 0px;
+        }
+        .stage-title { font-size: 24pt; font-weight: bold; margin: 0; }
+        .author-line { font-size: 14pt; margin: 5px 0; }
+
+        .columns {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .left-col { width: 60%; }
+        .right-col { width: 40%; }
+
+        h3 { 
+            font-size: 12pt; 
+            margin: 15px 0 5px 0; 
+            text-transform: uppercase;
+        }
+        h1 { 
+            font-size: 28pt; 
+            margin: 15px 0 5px 0; 
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .wsb-brief-text { 
+            font-size: 14pt; 
+            margin: 20px 0 20px 0; 
+        }
+        p { font-size: 10pt; margin: 0 0 10px 0; line-height: 1.4; }
+
+        .scoring-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+        .scoring-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            vertical-align: top;
+        }
+        .label { font-weight: bold; width: 40%; background: #f0f0f0; }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;        
+            left: 20px;
+            right: 20px;
+            font-size: 8pt;
+            text-align: center;
+        }
+
+        .two-col-table{
+            width: 100%;
+            border-collapse: collapse;   
+            table-layout: fixed;         
+        }
+
+        .two-col-table td{
+            width: 50%;
+            vertical-align: top;
+            padding: 5px 6px;
+            box-sizing: border-box;
+            border: 1px solid #000;     
+        }
+
+        .full-width-table{
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 6px; 
+        }
+
+        .full-width-table td{
+            border: 1px solid #000;
+            padding: 5px 6px;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        .full-width-table-brief{
+            width: 100%;
+            height:  700px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            vertical-align: top;
+            margin-bottom: 6px; 
+        }
+        .full-width-table-brief td{
+            border: 1px solid #000;
+            padding: 5px 6px;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+        .wsb-additional-views {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(4, minmax(0, 1fr));
+            gap: 6mm;
+            width: 100%;
+            height: 205mm;
+            margin-top: 1px;
+        }
+        .wsb-additional-view-cell {
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) auto auto;
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+        }
+        .wsb-additional-view-cell img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .wsb-additional-view-title { padding: 1.2mm 1.5mm 0; font-size: 9pt; font-weight: 700; line-height: 1.15; }
+        .wsb-additional-view-notes { padding: .6mm 1.5mm 1.2mm; font-size: 8pt; line-height: 1.15; }
+
+        @media print {
+          @page {
+            size: A4;
+            margin: 0;         
+          }
+          body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: white !important;
+          }
+          .page {
+            width: 210mm;
+            height: 297mm;             
+            margin: 0 !important;       
+            border: none;              
+            box-sizing: border-box;
+            break-after: page;
+            page-break-after: always;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            overflow: hidden;          
+          }
+
+          .page:last-child {
+            break-after: auto;
+            page-break-after: auto;
+          }
+
+          .page-header-bar {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+        }
+
+        @media print{
+          .two-col-block{
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE ONE -->
+    <div class="page">
+        <div class="header-row">
+            <div class="image-box"><img src="idpalogo.jpg" 
+                style="width: 100%;                        
+                height: 100%; 
+                object-fit: contain; 
+                object-position: center;">
+            </div>
+            <div class="image-box"><img src="idpalogo.jpg" 
+                style="width: 100%;                        
+                height: 100%; 
+                object-fit: contain; 
+                object-position: center;">
+            </div>
+        </div>
+
+        <div class="main-content-box">
+            <div class="title-section">
+                <div class="stage-title">[[stage-name]]</div>
+                <div class="author-line">by [[designer-name]]</div>
+            </div>
+            <table class="full-width-table" role="presentation">
+              <tr>
+                <td>
+                  <h3>Scenario</h3>
+                  <p>[[scenario]]</p>
+                </td>
+              </tr>
+            </table>
+            <table class="two-col-table" role="presentation">
+              <tr>
+                <td class="col left">
+                  <h3>Start Position</h3>
+                  <p>[[start-position]]</p>
+
+                  <h3>Stage Procedure</h3>
+                  <p>[[procedure]]
+                  </p>
+                </td>
+
+                <td class="col right">
+                  <h3>Scoring</h3>
+                  <p>[[scoring-type]], [[num-rounds]] rounds.</p>
+
+                  <h3>Targets</h3>
+                  <p>[[num-paper]] IDPA targets, [[num-poppers]] steel popper.</p>
+
+                  <h3>Notes</h3>
+                  <p>Concealment is [[concealment]].</p>
+                </td>
+              </tr>
+            </table>
+
+
+            </table>
+            <div style="width: 100%; height: 450px; margin-top: 10px; overflow: hidden; border: 1px solid #ccc;">
+                <img src="[[image-main]]" 
+                     alt="Stage Layout" 
+                     style="width: 100%; 
+                            height: 100%; 
+                            object-fit: cover; 
+                            object-position: center;">
+            </div>
+        </div>
+        <div class="footer">
+            Generated using Practisim Designer
+        </div>
+    </div>
+
+    <!-- PAGE TWO -->
+    <div class="page">
+        <div class="main-content-box">
+            <div class="title-section">
+                <div class="stage-title">[[stage-name]]</div>
+                <div class="author-line">by [[designer-name]]</div>
+            </div>
+            <table class="full-width-table-brief" role="presentation">
+              <tr>
+                <td>
+                  <h1>WRITTEN STAGE BRIEFING</h1>
+                  <div class="wsb-brief-text">[[full-briefing]]</div>
+                </td>
+              </tr>
+            </table>
+        </div>
+
+        <table class="two-col-table" role="presentation" style="border-collapse: collapse;">
+              <tr>
+                <td class="col left" style="border:none;">
+                    <div class="image-box"><img src="idpalogo.jpg" 
+                        style="width: 100%;                        
+                        height: 100%; 
+                        object-fit: contain; 
+                        object-position: center;">
+                    </div>
+                </td>
+                <td class="col right" style="border:none;">
+                    <div class="image-box"><img src="idpalogo.jpg" 
+                        style="width: 100%;                        
+                        height: 100%; 
+                        object-fit: contain; 
+                        object-position: center;">
+                    </div>
+                </td>
+              </tr>
+        </table>
+        <div class="footer">
+            Generated using Practisim Designer
+        </div>
+    </div>
+
+    <!-- BUILD DIAGRAM PAGE -->
+    <div class="page">
+        <div class="briefing-text">
+            <div class="main-content-box">
+                <div class="title-section">
+                    <div class="stage-title">[[stage-name]]</div>
+                    <div class="author-line">by [[designer-name]]</div>
+                </div>
+            </div>
+
+            <table class="full-width-table-brief" role="presentation">
+                  <tr>
+                    <td>
+                      <h1>BUILD DIAGRAM</h1>
+                      <div style="width: 100%; height: 790px; margin-top: 10px; overflow: hidden; border: 1px solid #ccc;">
+                        <img src="[[image-build]]" 
+                            alt="Build Diagram" 
+                            style="width: 100%; 
+                            height: 100%; 
+                            object-fit: cover; 
+                            object-position: center;">
+                      </div>
+                    </td>
+                  </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            Generated using Practisim Designer
+        </div>
+    </div>    
+
+    <!-- ADDITIONAL VIEWS PAGE -->
+    <div class="page">
+        <div class="briefing-text">
+            <div class="main-content-box">
+                <div class="title-section">
+                    <div class="stage-title">[[stage-name]]</div>
+                    <div class="author-line">by [[designer-name]]</div>
+                </div>
+            </div>
+            <table class="full-width-table-brief" role="presentation">
+                  <tr>
+                    <td style="border:none; align-items: center">
+                      <h1>ADDITIONAL VIEWS</h1>
+                        <div class="wsb-additional-views">
+                            [[additional-views-grid]]
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            Generated using Practisim Designer
+        </div>
+    </div> 
+</body>
+</html>
